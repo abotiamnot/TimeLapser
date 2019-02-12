@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/../RaspiWifi/.idea/RaspiWifi.iml" filepath="$PROJECT_DIR$/../RaspiWifi/.idea/RaspiWifi.iml" />
       <module fileurl="file://$PROJECT_DIR$/../StreamWeb/.idea/StreamWeb.iml" filepath="$PROJECT_DIR$/../StreamWeb/.idea/StreamWeb.iml" />
       <module fileurl="file://$PROJECT_DIR$/../local_deepankar/.idea/local_deepankar.iml" filepath="$PROJECT_DIR$/../local_deepankar/.idea/local_deepankar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../raspiwifi/.idea/raspiwifi.iml" filepath="$PROJECT_DIR$/../raspiwifi/.idea/raspiwifi.iml" />
     </modules>
   </component>
 </project>
