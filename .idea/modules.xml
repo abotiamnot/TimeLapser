@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Deepankar_Raspberry.iml" filepath="$PROJECT_DIR$/.idea/Deepankar_Raspberry.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Deepankar_Raspberry (copy 1)/.idea/Deepankar_Raspberry.iml" filepath="$PROJECT_DIR$/../Deepankar_Raspberry (copy 1)/.idea/Deepankar_Raspberry.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../LAN/.idea/LAN.iml" filepath="$PROJECT_DIR$/../LAN/.idea/LAN.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../RaspiWifi/.idea/RaspiWifi.iml" filepath="$PROJECT_DIR$/../RaspiWifi/.idea/RaspiWifi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../StreamWeb/.idea/StreamWeb.iml" filepath="$PROJECT_DIR$/../StreamWeb/.idea/StreamWeb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../local_deepankar/.idea/local_deepankar.iml" filepath="$PROJECT_DIR$/../local_deepankar/.idea/local_deepankar.iml" />
+    </modules>
+  </component>
+</project>
