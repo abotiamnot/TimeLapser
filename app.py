@@ -39,11 +39,9 @@ def gen(camera):
          if record is True:
              past = time.time()
              while(time.time() - past < timelapse):
-                 print("Stuck here broskis")
                  yield (b'--frame\r\n'
                         b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
                  frame = camera.get_frame()
-             print("Out here broskis")
              frame_file = open('/home/{date:%Y-%m-%d %H%M%S}.jpg'.format(date=datetime.now()), 'wb')
              frame_file.write(frame)
              frame_file.close()
