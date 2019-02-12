@@ -111,6 +111,18 @@ input {
     </nav>
 
     <div class="container-fluid">
+	<div class="row">
+			<div class="jumbotron">
+                <figcaption class="figure-caption"><strong>Live Feed</strong></figcaption>
+                <img src="{{ url_for('video_feed') }}" width="640" height="480">
+		</div>
+	</div>
+</div>
+
+    <div class="container-fluid">
+    <div class="row">
+{#    <align="center">#}
+    <div class="jumbotron">
         <form action="{{ url_for('save_credentials') }}" method=post>
       <ul>
         <li><label for="ssid">Select your WiFi network</label></li>
@@ -133,27 +145,14 @@ input {
 	  <br><br>
     </form>
     </div>
-
-    <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-6">
-			<div class="jumbotron">
-                <figure class="figure">
-                <img src="{{ url_for('video_feed') }}">
-                      <figcaption class="figure-caption">Live Feed</figcaption>
-                </figure>
-			</div>
-		</div>
-		<div class="col-md-6">
-            <div class="jumbotron">
-                <h3 display="lead">E-Mail List</h3>
-                 <form method=post>
-                    {{table|safe}}
-                 </form>
-            </div>
-		</div>
-	</div>
-</div>
+{#    </div>#}
+    <div class="col-md-6">
+    <div class="jumbotron">
+        <form method=post>
+        {{table|safe}}
+        </form>
+    </div>
+    </div>
 {% endblock %}
 
 
