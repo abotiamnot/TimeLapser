@@ -71,7 +71,7 @@ def timelapser():
         if record == True:
             record = False
         else:
-            current_name = '{}'.format(date=datetime.now())
+            current_name = '{date:%Y-%m-%d %H%M%S}'.format(date=datetime.now())
             timelapse = int(request.form['inputTimeLapse'])
             record = True
     return render_template('timelapser.html', record_condition=record)
