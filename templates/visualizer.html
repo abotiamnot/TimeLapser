@@ -27,16 +27,18 @@
         </div>
     </div>
 
+
+        <div class="container-fluid">
+	<div class="row">
+			<div class="jumbotron">
+                <img src="{{ url_for('video_feed') }}" width="640" height="480">
+                </div>
+            </div>
+        </div>
+
+
     <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-6">
-			<div class="jumbotron">
-                <figure class="figure">
-                <img src="{{ url_for('video_feed') }}" style="width:640px;height:480px;">
-                      <figcaption class="figure-caption">Live Feed</figcaption>
-                </figure>
-			</div>
-		</div>
 		<div class="col-md-6">
             <div class="jumbotron">
                 <form>

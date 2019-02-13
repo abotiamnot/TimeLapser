@@ -30,28 +30,30 @@
 
     <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-6">
 			<div class="jumbotron">
-                <figure class="figure">
-                <img src="{{ url_for('video_feed') }}" style="width:640px;height:480px;">
-                      <figcaption class="figure-caption">Live Feed</figcaption>
-                </figure>
-			</div>
+                <img src="{{ url_for('video_feed') }}" width="640" height="480">
 		</div>
-		<div class="col-md-6">
+	</div>
+</div>
+    <div class="container">
+    <div class="col-md-5">
             <div class="jumbotron">
                 <form method="POST">
-              <div class="form-group row">
+                    <br><br>
+                <div class="form-group row">
                 <label for="inputTimeLapse" class="col-sm-2 col-form-label">Lapse Period</label>
                 <div class="col-sm-10">
                   <input type="number" class="form-control" id="inputTimeLapse" placeholder="2" name="inputTimeLapse">
                 </div>
               </div>
-                    <br><br>
-              <button class="btn btn-success" type="submit">Record</button>
+                {%  if record_condition == False %}
+                    <button class="btn btn-success" type="submit">Record</button>
+                {% endif %}
+                {% if record_condition == True %}
+                    <button class="btn btn-danger" type="submit">Stop</button>
+                {% endif %}
             </form>
+                </div>
             </div>
 		</div>
-	</div>
-</div>
 {% endblock %}

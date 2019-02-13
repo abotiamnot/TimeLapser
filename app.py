@@ -5,6 +5,7 @@ from datetime import datetime
 import time
 from threading import Thread
 import subprocess
+import random
 import dynamic as dyn
 
 Camera = import_module('camera_pi').Camera
@@ -20,11 +21,13 @@ def root():
 
 record = False
 timelapse = 0
+current_name = None
 
 @app.route('/thisshallneverwork', methods=['GET', 'POST'])
 def gen(camera):
     global record
     global timelapse
+    global current_name
     print(record)
     print(timelapse)
     while True:
@@ -35,7 +38,8 @@ def gen(camera):
                  yield (b'--frame\r\n'
                         b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
                  frame = camera.get_frame()
-             frame_file = open('/home/{date:%Y-%m-%d %H%M%S}.jpg'.format(date=datetime.now()), 'wb')
+             frame_file = open('/home/pi/photos/{}/{date:%Y-%m-%d %H%M%S}.jpg'.format(current_name, date=datetime.now()), 'wb')
+             print("Image Saved!")
              frame_file.write(frame)
              frame_file.close()
          else:
@@ -62,10 +66,15 @@ def main_menu():
 def timelapser():
     global timelapse
     global record
+    global current_name
     if request.method == 'POST':
-        timelapse = int(request.form['inputTimeLapse'])
-        record = True
-    return render_template('timelapser.html')
+        if record == True:
+            record = False
+        else:
+            current_name = '{}'.format(date=datetime.now())
+            timelapse = int(request.form['inputTimeLapse'])
+            record = True
+    return render_template('timelapser.html', record_condition=record)
 
 @app.route('/visualizer')
 def visualizer():
@@ -74,6 +83,18 @@ def visualizer():
 @app.route('/securitycamera', methods=['GET', 'POST'])
 def securitycamera():
     wifi_ap_array = scan_wifi_networks()
+    if request.method == 'POST':
+        try:
+            if request.form['delete']:
+              delete_request = int(request.form['delete'])
+              del email_list[delete_request]
+        except Exception:
+               pass
+        try:
+           if request.form['email']:
+              email_list.append(request.form['email_'])
+        except Exception:
+               pass
     return render_template('securitycamera.html', wifi_ap_array = wifi_ap_array, table=dyn.table_generate(email_list))
 
 
