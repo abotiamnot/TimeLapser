@@ -206,12 +206,17 @@ def zipper_():
         for filename in files:
             zf.write(os.path.join(dirname, filename))
     zf.close()
-    print("Returning this {}".format(path + current_name + '.zip'))
-    attachment_filename = path + current_name + '.zip'
-    return send_file(attachment_filename,
-                     mimetype='zip',
-                     attachment_filename=attachment_filename,
-                     as_attachment=True)
+    # print("Returning this {}".format(path + current_name + '.zip'))
+    # attachment_filename = path + current_name + '.zip'
+    # return send_file(attachment_filename,
+    #                  mimetype='zip',
+    #                  attachment_filename=attachment_filename,
+    #                  as_attachment=True)
+
+def check_if_exist():
+    files_ = os.listdir('/home/pi/photos/')
+    zips = [file for file in files_ if file[-3:] == 'zip']
+
 
  ###################
 
