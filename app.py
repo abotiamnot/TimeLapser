@@ -1,11 +1,13 @@
-from flask import Flask, render_template, redirect, url_for, session, request, Response
+from flask import Flask, render_template, redirect, url_for, session, request, Response, send_file
 import os
+import io
+import pathlib
+import zipfile
 from importlib import import_module
 from datetime import datetime
 import time
 from threading import Thread
 import subprocess
-import random
 import dynamic as dyn
 
 Camera = import_module('camera_pi').Camera
@@ -34,17 +36,23 @@ def gen(camera):
          frame = camera.get_frame()
          if record is True:
              past = time.time()
-             while(time.time() - past < timelapse):
+             while time.time() - past < timelapse:
+                 print(time.time() - past)
                  yield (b'--frame\r\n'
                         b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
                  frame = camera.get_frame()
+             print('/home/pi/photos/{}/{date:%Y-%m-%d %H%M%S}.jpg'.format(current_name, date=datetime.now()))
              frame_file = open('/home/pi/photos/{}/{date:%Y-%m-%d %H%M%S}.jpg'.format(current_name, date=datetime.now()), 'wb')
-             print("Image Saved!")
              frame_file.write(frame)
+             print("Image Saved!")
              frame_file.close()
          else:
              yield (b'--frame\r\n'
                     b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+# @app.route('/downloadable'):
+# def directory():
+#
 
 @app.route('/video_feed')
 def video_feed():
@@ -67,11 +75,19 @@ def timelapser():
     global timelapse
     global record
     global current_name
+    path = '/home/pi/photos/'
     if request.method == 'POST':
         if record == True:
             record = False
+            zipper_()
+            file_path = path + current_name + '.zip'
+            return send_file(file_path,
+                             mimetype='zip',
+                             attachment_filename=current_name + '.zip',
+                             as_attachment=True)
         else:
-            current_name = '{date:%Y-%m-%d %H%M%S}'.format(date=datetime.now())
+            current_name = '{date:%Y%m%d%H%M%S}'.format(date=datetime.now())
+            pathlib.Path('/home/pi/photos/{}/'.format(current_name)).mkdir(parents=True, exist_ok=True)
             timelapse = int(request.form['inputTimeLapse'])
             record = True
     return render_template('timelapser.html', record_condition=record)
@@ -178,6 +194,24 @@ def config_file_hash():
         config_hash[line_key] = line_value
 
     return config_hash
+
+
+def zipper_():
+    global current_name
+    print("Inside Zipper!")
+    path = '/home/pi/photos/'
+    zf = zipfile.ZipFile(path + current_name + '.zip', "w")
+    for dirname, subdirs, files in os.walk(path + current_name):
+        zf.write(dirname)
+        for filename in files:
+            zf.write(os.path.join(dirname, filename))
+    zf.close()
+    print("Returning this {}".format(path + current_name + '.zip'))
+    attachment_filename = path + current_name + '.zip'
+    return send_file(attachment_filename,
+                     mimetype='zip',
+                     attachment_filename=attachment_filename,
+                     as_attachment=True)
 
  ###################
 
